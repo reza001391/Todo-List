@@ -5,11 +5,11 @@ const todoList = document.querySelector(".todo-list");
 const fiterOption = document.querySelector(".filter-todo");
 
 // Event Listeners
+document.addEventListener("DOMContentLoaded", getTodos);
 
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 fiterOption.addEventListener("click", filterTodos);
-
 // FUnctions
 
 function addTodo(event) {
@@ -23,8 +23,12 @@ function addTodo(event) {
   <button class = "complete-btn"><i class='fas fa-check'></i></button>
   <button class = "trash-btn"><i class='fas fa-trash'></i></button>
   `;
+
   //   append to ul
   todoList.appendChild(todoDiv);
+  //   add todo to lacal storage
+  saveLocalTodos(todoInput.value);
+
   //   clear todo input value
   todoInput.value = "";
   //
@@ -60,6 +64,7 @@ function deleteCheck(event) {
   if (item.classList[0] === "trash-btn") {
     const todo = item.parentElement;
     todo.classList.add("fall");
+    deleteTodos(todo);
     todo.addEventListener("transitionend", () => {
       todo.remove();
     });
@@ -101,4 +106,49 @@ function filterTodos(event) {
         break;
     }
   });
+}
+
+function saveLocalTodos(todo) {
+  //
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+function getTodos() {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.forEach((todo) => {
+    // create div
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    todoDiv.innerHTML = `
+        <li class="todo-item">${todo}</li>
+        <button class = "complete-btn"><i class='fas fa-check'></i></button>
+        <button class = "trash-btn"><i class='fas fa-trash'></i></button>
+        `;
+
+    //   append to ul
+    todoList.appendChild(todoDiv);
+  });
+}
+function deleteTodos(todo) {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  //
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
