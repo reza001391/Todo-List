@@ -1,7 +1,17 @@
-/* * import font -------------------*/
+/* * import font ---------------------------------------------------------*/
 @import url(fonts/Yekan.css);
 
-/*  */
+:root {
+  --primeryColor: #6d28d9;
+  --seconderyColor: #ede9fe;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainGray: #7c7c7c;
+  --bodyColor: #f6f6f6;
+  --mainSpacing: 0.1rem;
+  --mainTransiton: all 0.3s linear;
+  --mainRed: #db2777;
+}
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +19,19 @@
 }
 
 body {
-  background-image: linear-gradient(120deg, #e2c35d, #d88771);
-  color: white;
+  background-image: linear-gradient(
+    120deg,
+    var(--primeryColor),
+    var(--seconderyColor)
+  );
+  color: var(--mainWhite);
   font-family: "Poppins", "Yekan", "Segoe UI", sans-serif, Tahoma;
   min-height: 100vh;
 }
-/** ----------------------------------- */
+/** -------------------------------------------------------------------- */
 header {
   font-size: 1.5rem;
+  color: var(--seconderyColor);
 }
 header,
 form {
@@ -25,22 +40,29 @@ form {
   justify-content: center;
   align-items: center;
 }
+form input {
+  border-radius: 0.7rem 0 0 0.7rem;
+}
+form button {
+  border-radius: 0 0.7rem 0.7rem 0;
+}
 form input,
 form button {
   padding: 0.5rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
   border: none;
-  background-color: white;
+  outline: none;
+  background-color: var(--seconderyColor);
 }
 form button {
-  color: #d88771;
-  background-color: white;
+  color: var(--primeryColor);
+  background-color: var(--seconderyColor);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 form button:hover {
-  background-color: #d88771;
-  color: white;
+  background-color: var(--primeryColor);
+  color: var(--seconderyColor);
 }
 .todo-container {
   display: flex;
@@ -48,33 +70,42 @@ form button:hover {
   align-items: center;
 }
 .todo-list {
-  min-width: 30%;
+  min-width: 40%;
   list-style: none;
 }
 .todo {
   margin: 0.5rem;
-  background-color: white;
+  background-color: var(--seconderyColor);
   color: black;
   font-size: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: all 0.5s ease;
+  border-radius: 0.7rem;
 }
 .todo li {
   flex: 1;
 }
 .trash-btn,
 .complete-btn {
-  background-color: #ff6f47;
-  color: white;
+  background-color: var(--mainRed);
+  color: var(--seconderyColor);
   border: none;
   cursor: pointer;
   padding: 1rem;
   font-size: 1rem;
 }
 .complete-btn {
-  background-color: rgb(73, 204, 73);
+  background-color: var(--primeryColor);
+}
+.complete-btn:hover {
+  background-color: var(--seconderyColor);
+  color: var(--primeryColor);
+}
+.trash-btn:hover {
+  background-color: var(--seconderyColor);
+  color: var(--mainRed);
 }
 .todo-item {
   padding: 0 0.5rem;
@@ -83,7 +114,6 @@ form button:hover {
 .fa-check {
   pointer-events: none;
 }
-
 .completed {
   text-decoration: line-through;
   opacity: 0.5;
@@ -99,22 +129,20 @@ select {
   appearance: none;
   outline: none;
   border: none;
+  color: var(--primeryColor);
+  width: 10rem;
+  cursor: pointer;
+  padding: 1rem;
 }
 .select {
   margin: 1rem;
   position: relative;
   overflow: hidden;
 }
-select {
-  color: #ff6f47;
-  width: 10rem;
-  cursor: pointer;
-  padding: 1rem;
-}
 .select::after {
   content: "\25bc";
   position: absolute;
-  background-color: #ff6f47;
+  background-color: var(--primeryColor);
   top: 0;
   right: 0;
   padding: 1rem;
@@ -122,6 +150,6 @@ select {
   transition: all 0.3s ease;
 }
 .select:hover::after {
-  background-color: white;
-  color: #ff6f47;
+  background-color: var(--seconderyColor);
+  color: var(--primeryColor);
 }
